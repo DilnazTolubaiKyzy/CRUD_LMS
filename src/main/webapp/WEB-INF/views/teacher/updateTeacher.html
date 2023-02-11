@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <style>
+        body {
+            background:#66cc33 ;
+            width:100%;
+            -webkit-transition: all 0.4s ease-in-out;
+            -moz-transition: all 0.4s ease-in-out;
+            -ms-transition: all 0.4s ease-in-out;
+            -o-transition: all 0.4s ease-in-out;
+            transition: all 0.4s ease-in-out;
+        }
+        body:hover {
+            background:#66cc33;
+        }
+    </style>
+</head>
+<body>
+<form th:action="@{/teachers/{id}(id=${teacher.getId()})}"
+      th:method="patch"
+      th:object="${teacher}">
+    <div class="mb-3">
+        <label for="exampleInputFirstName" class="form-label">First name</label>
+        <input type="text" th:field="*{firstName}" class="form-control" id="exampleInputFirstName" aria-describedby="FirstNameHelp">
+        <div id="exampleInputFirstNameHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputLastName" class="form-label"> Last name</label>
+        <input type="text" th:field="*{lastName}" class="form-control" id="exampleInputLastname">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputEmail" class="form-label"> email</label>
+        <input type="text" th:field="*{email}" class="form-control" id="exampleInputEmail">
+    </div>
+    <select th:field="${teacher.courseId}">
+        <option th:each="course:${courses}"
+                th:value="${course.id}"
+                th:text="${course.courseName}">
+        </option>
+    </select>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</body>
+</html>

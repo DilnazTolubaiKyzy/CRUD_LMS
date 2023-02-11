@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <style>
+        .students {
+            font-family: 'Brush Script MT', cursive;
+            background-color: royalblue;
+            padding-left: 600px;
+        }
+        .hello {
+            display: inline-block;
+            width: 1.5em;
+            height: 1.5em;
+            vertical-align: middle;
+            text-decoration: none;
+            border: .5em solid rgba(0,0,0,0);
+            border-radius: 100%;
+            background: rgb(245,245,245) linear-gradient(rgb(245,245,245), rgb(188,192,193)) 50% 50% / calc(1.5em + .5em*2) calc(1.5em + .5em*2);
+            box-shadow:
+                    inset 0 -3px 10px rgba(255,255,255,1),
+                    inset 0 3px 10px rgba(0,0,0,.4),
+                    0 2px 4px rgba(0,0,0,.9);
+        }
+
+        body {
+            background: #fff;
+        }
+
+        .students {
+            font-size: 2.5rem;
+            font-family: 'Lobster', cursive;
+        }
+
+        .wrapper {
+            animation: scroll 70s linear infinite;
+            background: url("https://images.unsplash.com/photo-1465146633011-14f8e0781093?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=3450&q=80"), #111111;
+            color: #eee;
+            height: 100vh;
+            min-width: 360px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+            perspective-origin: 50% 50%;
+
+        }
+
+        @keyframes scroll {
+            100%{
+                background-position:0px -3000px;
+            }
+        }
+
+        @media (prefers-reduced-motion) {
+            .wrapper {
+                animation: scroll 200s linear infinite;
+            }
+        }
+
+        @media (min-width: 670px) {
+            .students {
+                font-size: 5rem;
+            }
+        }
+        .table{
+            background-color: #D7D4E4;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <ul class="students">
+        <h1> Student </h1>
+    </ul>
+</header>
+<article class="wrapper">
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col"> First name</th>
+        <th scope="col">Last name</th>
+        <th scope="col">email</th>
+        <th scope="col">Study format</th>
+        <th scope="col">Groups</th>
+        <th scope="col">Update</th>
+        <th scope="col">Delete</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="student:${students}">
+        <td th:text="${student.id}"></td>
+        <td th:text="${student.firstName}"></td>
+        <td th:text="${student.lastName}"></td>
+        <td th:text="${student.email}"></td>
+        <td th:text="${student.studyFormat}"></td>
+        <td th:text="${student.group.groupName}"></td>
+        <td><a th:href="@{/students/update/{id}(id=${student.getId()})}">update</a></td>
+        <td>
+            <form th:method="delete" th:action="@{/students/delete/{id}(id=${student.getId()})}"
+            ><input type="submit" value="delete"></form></td>
+    </tr>
+    </tbody>
+</table>
+<a href="/students/addStudent"><span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
+  <button class="btn btn-primary" type="button" disabled>students</button>
+</span></a>
+<p>      <a class="hello" href="/students/hello" >  </a >       </p>
+    <section class="header-content">
+        <a class="company" href="/companies"><button  type="button" >Companies</button></a>
+        <a class="course" href="/courses"><button  type="button" >Courses</button></a>
+        <a class="group" href="/groups"><button  type="button" >Groups</button></a>
+        <a class="teacher" href="/teachers"><button  type="button" >Teachers</button></a>
+    </section>
+</article>
+<div class="waveWrapper waveAnimation">
+    <div class="waveWrapperInner bgTop">
+        <div class="wave waveTop" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-top.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgMiddle">
+        <div class="wave waveMiddle" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-mid.png')"></div>
+    </div>
+    <div class="waveWrapperInner bgBottom">
+        <div class="wave waveBottom" style="background-image: url('http://front-end-noobs.com/jecko/img/wave-bot.png')"></div>
+    </div>
+</div>
+</body>
+</html>

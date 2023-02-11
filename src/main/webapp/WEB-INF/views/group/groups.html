@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Group</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<style>
+    .groups {
+        font-family: 'Brush Script MT', cursive;
+        background-color: royalblue;
+        padding-left: 600px;
+    }
+    .hello {
+        display: inline-block;
+        width: 1.5em;
+        height: 1.5em;
+        vertical-align: middle;
+        text-decoration: none;
+        border: .5em solid rgba(0,0,0,0);
+        border-radius: 100%;
+        background: rgb(245,245,245) linear-gradient(rgb(245,245,245), rgb(188,192,193)) 50% 50% / calc(1.5em + .5em*2) calc(1.5em + .5em*2);
+        box-shadow:
+                inset 0 -3px 10px rgba(255,255,255,1),
+                inset 0 3px 10px rgba(0,0,0,.4),
+                0 2px 4px rgba(0,0,0,.9);
+    }
+
+    @keyframes draw {
+        to {
+            stroke-dashoffset: 0;
+        }
+    }
+
+    @keyframes show {
+        0% {
+            opacity: 0.15;
+        }
+        50% {
+            opacity: 0.2;
+        }
+        100% {
+            opacity: 0.15;
+        }
+    }
+    .table {
+        font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+        font-size: 14px;
+        border-radius: 10px;
+        border-spacing: 0;
+        text-align: center;
+    }
+    body {
+        background: #BCEBDD;
+        color: white;
+        text-shadow: 0 1px 1px #2D2020;
+        padding: 10px 20px;
+    }
+    th, td {
+        border-style: solid;
+        border-width: 0 1px 1px 0;
+        border-color: white;
+    }
+    th:first-child, td:first-child {
+        text-align: left;
+    }
+    th:first-child {
+        border-top-left-radius: 10px;
+    }
+    th:last-child {
+        border-top-right-radius: 10px;
+        border-right: none;
+    }
+    td {
+        padding: 10px 20px;
+        background: #F8E391;
+    }
+    tr:last-child td:first-child {
+        border-radius: 0 0 0 10px;
+    }
+    tr:last-child td:last-child {
+        border-radius: 0 0 10px 0;
+    }
+    tr td:last-child {
+        border-right: none;
+    }
+
+
+</style>
+</head>
+<body>
+<header>
+    <ul class="groups">
+        <h1> Group </h1>
+        <form th:method="search" th:action="@{/groups/search/}">
+            <input  placeholder="search"></form>
+    </ul>
+</header>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col"> Group Name</th>
+        <th scope="col">Date of start</th>
+        <th scope="col">Date of finish</th>
+        <th scope="col">Courses</th>
+        <th scope="col">Students</th>
+        <th scope="col">Delete</th>
+        <th scope="col">Update</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="group:${groups}">
+        <td th:text="${group.id}"></td>
+        <td th:text="${group.groupName}"></td>
+        <td th:text="${group.dateOfStart}"></td>
+        <td th:text="${group.dateOfFinish}"></td>
+        <td><a th:href="@{/groups/courses/{id}(id=${group.id})}">courses</a></td>
+        <td><a th:href="@{/groups/students/{id}(id=${group.getId()})}">students</a></td>
+        <td><a th:href="@{/groups/update/{id}(id=${group.getId()})}">update</a></td>
+        <td>
+            <form th:method="delete" th:action="@{/groups/delete/{id}(id=${group.getId()})}"
+            ><input type="submit" value="delete"></form></td>
+    </tr>
+    </tbody>
+</table>
+<a href="/groups/addGroup"><span class="d-inline-block" tabindex="0" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover">
+  <button class="btn btn-primary" type="button" disabled>add</button>
+</span></a>
+<p> <a class="hello" href="/groups/hello" > </a > </p>
+<section class="header-content">
+    <a class="company" href="/companies"><button  type="button" >Companies</button></a>
+    <a class="course" href="/courses"><button  type="button" >Courses</button></a>
+    <a class="student" href="/students"><button  type="button" >Students</button></a>
+    <a class="teacher" href="/teachers"><button  type="button" >Teachers</button></a>
+</section>
+
+
+</body>
+</html>
